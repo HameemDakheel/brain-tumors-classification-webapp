@@ -49,11 +49,12 @@ np.set_printoptions(suppress=True)
 print("Loading model")
 
 # Load the model
-model = load_model(MODEL_PATH)
+model = load_model(MODEL_PATH, compile=False)
 
+# model.summary()
 # Load the labels
 # class_names = open("labels.txt", "r").readlines()
-class_names = ['pituitary','notumor', 'meningioma', 'glioma']
+class_names = [ 'glioma','meningioma', 'notumor','pituitary']
 
 
 print('Model loaded. Check http://127.0.0.1:5000/')
@@ -132,9 +133,11 @@ def predict():
         # result = str(pred_class[0][0][1])               # Convert to string
         # result = result.replace('_', ' ').capitalize()
         index = np.argmax(prediction)
-        class_name = class_names[index]
         confidence_score = str(prediction[0][index])
-        result = str(class_name[2:])
+        result = str(class_names[index])
+        print ("predicton", prediction)
+        print ("index", index)
+        print ("class_name", class_names)
         print("Class:", result)
         print("Confidence Score:", confidence_score)
         
